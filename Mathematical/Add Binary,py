@@ -1,0 +1,41 @@
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        max_len = max(len(a), len(b))
+        a = a.zfill(max_len)
+        b = b.zfill(max_len)
+        addition=[]
+        carry=0
+        for i in range(max_len - 1, -1, -1):
+            
+            bit_a = int(a[i])  
+            bit_b = int(b[i])  
+
+            if bit_a == 1 and bit_b == 1:
+                addition.append(str(carry))  # 1 + 1 = 0 with carry 1
+                carry = 1
+            elif bit_a == 0 and bit_b == 0:
+                addition.append(str(carry))  # 0 + 0 = carry
+                carry = 0
+            else:
+                # 1 + 0 or 0 + 1
+                if carry == 1:
+                    addition.append("0")  # 1 + 0 + 1 = 10 (append 0, carry 1)
+                    carry = 1
+                else:
+                    addition.append("1")  # 1 + 0 = 1
+                    carry = 0
+
+        if carry:
+            addition.append("1")
+        addition.reverse()
+
+        return ''.join(addition)
+
+                
+    
+        
