@@ -5,22 +5,21 @@ class Solution(object):
         :type needle: str
         :rtype: int
         """
-        n= len(haystack)
-        m= len(needle)
-        for i in range(n-m+1):
-            if haystack[i:i+m]==needle:
-                return i
-        return(-1)
-        
+        # If needle is empty, return 0
+        if not needle:
+            return 0
 
+        n, m = len(haystack), len(needle)
 
-#Alternative
-"""
-class Solution(object):
-    def strStr(self, haystack, needle):
-  
-        if needle in haystack:
-            return haystack.index(needle)
-        else:
-            return(-1)
-"""
+        # Loop through haystack up to a point where needle can still fit
+        for i in range(n - m + 1):
+            # Assume match, then check character by character
+            match = True
+            for j in range(m):
+                if haystack[i + j] != needle[j]:
+                    match = False
+                    break
+            if match:
+                return i  # Found first occurrence
+
+        return -1  # Not found
